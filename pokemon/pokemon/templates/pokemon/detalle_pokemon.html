@@ -1,0 +1,33 @@
+{% extends 'pokemon/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2><i class="fas fa-paw"></i> {{ pokemon.nombre }}</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                {% if pokemon.fotografia %}
+                <img src="{{ pokemon.fotografia.url }}" class="img-fluid rounded" alt="{{ pokemon.nombre }}">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <h4>Has elegido el pokemon: {{ pokemon.nombre }}</h4>
+                <h5 class="mt-4">Características:</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fas fa-fire"></i> Tipo: {{ pokemon.get_tipo_display }}</li>
+                    <li class="list-group-item"><i class="fas fa-weight-hanging"></i> Peso: {{ pokemon.peso }} kg</li>
+                    <li class="list-group-item"><i class="fas fa-ruler-vertical"></i> Altura: {{ pokemon.altura }} cm</li>
+                    <li class="list-group-item"><i class="fas fa-user"></i> Entrenador: {{ pokemon.entrenador }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'lista_pokemons' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Regresar
+        </a>
+    </div>
+</div>
+{% endblock %}

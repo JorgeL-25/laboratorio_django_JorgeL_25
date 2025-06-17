@@ -1,0 +1,21 @@
+{% extends 'pokemon/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        <h2><i class="fas fa-exclamation-triangle"></i> Confirmar Eliminación</h2>
+    </div>
+    <div class="card-body">
+        <p>¿Estás seguro que deseas eliminar a <strong>{{ pokemon.nombre }}</strong>?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Sí, Eliminar
+            </button>
+            <a href="{% url 'detalle_pokemon' pokemon.id %}" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}

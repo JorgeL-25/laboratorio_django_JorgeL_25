@@ -1,0 +1,22 @@
+{% extends 'pokemon/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>{% if form.instance.id %}Editar{% else %}Agregar{% endif %} Pokémon</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary mt-3">
+                <i class="fas fa-save"></i> Guardar
+            </button>
+            <a href="{% url 'lista_pokemons' %}" class="btn btn-secondary mt-3">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'pokemon/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2 class="mb-4"><i class="fas fa-list"></i> Lista de Pokémons</h2>
+
+{% if user.is_authenticated %}
+<a href="{% url 'agregar_pokemon' %}" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> Agregar Pokémon
+</a>
+{% endif %}
+
+<div class="row">
+    {% for pokemon in pokemons %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if pokemon.fotografia %}
+            <img src="{{ pokemon.fotografia.url }}" class="card-img-top" alt="{{ pokemon.nombre }}" style="height: 200px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ pokemon.nombre }}</h5>
+                <p class="card-text"><i class="fas fa-user"></i> Entrenador: {{ pokemon.entrenador }}</p>
+                <p class="card-text"><i class="fas fa-weight-hanging"></i> Peso: {{ pokemon.peso }} kg</p>
+            </div>
+            <div class="card-footer bg-white">
+                <a href="{% url 'detalle_pokemon' pokemon.id %}" class="btn btn-info btn-sm">
+                    <i class="fas fa-eye"></i> Ver
+                </a>
+                {% if user.is_authenticated and user == pokemon.entrenador.user %}
+                <a href="{% url 'editar_pokemon' pokemon.id %}" class="btn btn-warning btn-sm">
+                    <i class="fas fa-edit"></i> Editar
+                </a>
+                <a href="{% url 'eliminar_pokemon' pokemon.id %}" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash"></i> Eliminar
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
